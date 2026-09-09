@@ -7,17 +7,20 @@
     <!-- Google Fonts: Cairo & Fira Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0b0f19;
-            --card-bg: rgba(18, 24, 38, 0.85);
+            --bg-dark: #0a0e17;
+            --card-bg: rgba(16, 22, 36, 0.85);
+            --lesson-bg: rgba(255, 255, 255, 0.035);
             --primary-cyan: #00f2fe;
             --primary-blue: #4facfe;
             --accent-purple: #7d5fff;
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
             --border-glow: rgba(0, 242, 254, 0.25);
+            --whatsapp: #25d366;
+            --facebook: #1877f2;
         }
 
         * {
@@ -27,9 +30,11 @@
             font-family: 'Cairo', sans-serif;
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
             background-color: var(--bg-dark);
-            background-image: 
+            background-image:
                 radial-gradient(circle at 15% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
                 radial-gradient(circle at 85% 80%, rgba(125, 95, 255, 0.1) 0%, transparent 40%),
                 linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
@@ -39,7 +44,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 30px 16px;
             color: var(--text-main);
             overflow-x: hidden;
             position: relative;
@@ -48,8 +53,8 @@
         /* Ambient glowing shapes */
         .glow-orb {
             position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 320px;
+            height: 320px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(0,242,254,0.15) 0%, rgba(0,0,0,0) 70%);
             top: 50%;
@@ -72,21 +77,21 @@
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             width: 100%;
-            max-width: 480px;
-            padding: 45px 35px;
+            max-width: 520px;
+            padding: 42px 34px 34px;
             border-radius: 28px;
             text-align: center;
             border: 1px solid var(--border-glow);
-            box-shadow: 
+            box-shadow:
                 0 20px 50px rgba(0, 0, 0, 0.5),
                 0 0 20px rgba(0, 242, 254, 0.1),
                 inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .container:hover {
             border-color: rgba(0, 242, 254, 0.4);
-            box-shadow: 
+            box-shadow:
                 0 25px 60px rgba(0, 0, 0, 0.6),
                 0 0 30px rgba(0, 242, 254, 0.2);
         }
@@ -94,21 +99,21 @@
         /* Tech Icon Badge */
         .icon-wrapper {
             position: relative;
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 25px;
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 22px;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(125, 95, 255, 0.1));
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(125, 95, 255, 0.12));
             border-radius: 22px;
             border: 1px solid rgba(0, 242, 254, 0.3);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         .icon-wrapper svg {
-            width: 48px;
-            height: 48px;
+            width: 46px;
+            height: 46px;
             fill: none;
             stroke: var(--primary-cyan);
             stroke-width: 1.8;
@@ -121,7 +126,7 @@
             display: inline-block;
             background: rgba(0, 242, 254, 0.1);
             color: var(--primary-cyan);
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 700;
             padding: 4px 14px;
             border-radius: 50px;
@@ -131,7 +136,7 @@
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 27px;
             font-weight: 800;
             margin-bottom: 8px;
             background: linear-gradient(135deg, #ffffff 30%, var(--primary-cyan) 100%);
@@ -142,9 +147,9 @@
 
         .teacher {
             color: var(--text-muted);
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 600;
-            margin-bottom: 22px;
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -159,79 +164,178 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Social icons */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover svg { transform: scale(1.15); }
+
+        .social-link.facebook:hover {
+            background: rgba(24, 119, 242, 0.15);
+            border-color: var(--facebook);
+            box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25);
+        }
+
+        .social-link.whatsapp:hover {
+            background: rgba(37, 211, 102, 0.15);
+            border-color: var(--whatsapp);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+        }
+
         .description {
             color: #cbd5e1;
-            font-size: 15px;
+            font-size: 14.5px;
             line-height: 1.7;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
             background: rgba(255, 255, 255, 0.03);
             padding: 14px;
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Modern Buttons */
-        .btn-group {
+        /* Section label */
+        .section-title {
             display: flex;
-            flex-direction: column;
-            gap: 16px;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
-        .btn {
-            position: relative;
+        .section-title::before,
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,242,254,0.25), transparent);
+        }
+
+        /* Lessons list */
+        .lessons {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .lesson-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--lesson-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 14px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .lesson-card:hover {
+            border-color: rgba(0, 242, 254, 0.35);
+            background: rgba(0, 242, 254, 0.05);
+        }
+
+        .lesson-number {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            text-decoration: none;
-            padding: 16px 24px;
-            border-radius: 16px;
-            font-size: 16px;
-            font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            border: 1px solid transparent;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            font-size: 15px;
             color: #040914;
-            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.25);
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            box-shadow: 0 6px 16px rgba(0, 242, 254, 0.25);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 242, 254, 0.4);
-            filter: brightness(1.08);
+        .lesson-info {
+            flex: 1;
+            text-align: right;
+            min-width: 0;
         }
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
+        .lesson-title {
+            font-size: 15.5px;
+            font-weight: 700;
             color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
+            margin-bottom: 2px;
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: var(--primary-cyan);
-            transform: translateY(-3px);
-            color: var(--primary-cyan);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        .lesson-sub {
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
-        .btn svg {
-            width: 22px;
-            height: 22px;
+        .lesson-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .icon-btn svg {
+            width: 18px;
+            height: 18px;
             transition: transform 0.3s ease;
         }
 
-        .btn:hover svg {
-            transform: scale(1.15);
+        .icon-btn:hover svg { transform: scale(1.15); }
+
+        .icon-btn.pdf:hover {
+            background: rgba(0, 242, 254, 0.12);
+            border-color: var(--primary-cyan);
+            color: var(--primary-cyan);
+            box-shadow: 0 8px 18px rgba(0, 242, 254, 0.2);
+        }
+
+        .icon-btn.interactive:hover {
+            background: rgba(125, 95, 255, 0.15);
+            border-color: var(--accent-purple);
+            color: #b7a6ff;
+            box-shadow: 0 8px 18px rgba(125, 95, 255, 0.2);
         }
 
         .footer {
-            margin-top: 32px;
+            margin-top: 30px;
             font-size: 13px;
             color: var(--text-muted);
             display: flex;
@@ -246,6 +350,11 @@
             font-size: 12px;
             opacity: 0.8;
         }
+
+        @media (max-width: 420px) {
+            .container { padding: 32px 20px 26px; }
+            .lesson-title { font-size: 14.5px; }
+        }
     </style>
 </head>
 
@@ -254,7 +363,7 @@
     <div class="glow-orb"></div>
 
     <div class="container">
-        
+
         <!-- Computer/Code SVG Icon -->
         <div class="icon-wrapper">
             <svg viewBox="0 0 24 24">
@@ -275,29 +384,83 @@
             <span class="name">الأستاذ بلوطي عمر</span>
         </div>
 
+        <!-- Social icons -->
+        <div class="socials">
+            <a href="https://www.facebook.com/Omar.Belloutii" target="_blank" rel="noopener noreferrer" class="social-link facebook" aria-label="فيسبوك">
+                <svg viewBox="0 0 24 24" fill="#1877f2">
+                    <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z"/>
+                </svg>
+            </a>
+            <a href="https://wa.me/213656618032" target="_blank" rel="noopener noreferrer" class="social-link whatsapp" aria-label="واتساب">
+                <svg viewBox="0 0 24 24" fill="#25d366">
+                    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.28-1.38a9.87 9.87 0 0 0 4.71 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.05c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.81-.11-.42-.13-.95-.31-1.64-.6-2.88-1.24-4.76-4.15-4.9-4.34-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.29.58-.36.78-.36.19 0 .39 0 .55.01.18.01.42-.07.65.5.24.58.81 2 .88 2.15.07.15.12.32.02.52-.09.19-.14.31-.28.48-.14.16-.3.36-.42.49-.14.15-.29.3-.12.6.16.29.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.25 1.38.29.14.46.12.63-.07.17-.19.72-.84.92-1.13.19-.29.38-.24.63-.15.26.1 1.64.78 1.92.92.29.14.48.21.55.33.07.12.07.68-.17 1.36z"/>
+                </svg>
+            </a>
+        </div>
+
         <p class="description">
             مرحبًا بكم في فضاء الدورة التفاعلي.<br>
-            يمكنكم الاطلاع على الدرس أو تحميل النسخة الرقمية مباشرة.
+            اختاروا الحصة التي تريدون الاطلاع عليها من القائمة أدناه.
         </p>
 
-        <div class="btn-group">
-            <a href="درس.pdf" class="btn btn-primary" download>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                تحميل الدرس (PDF)
-            </a>
+        <div class="section-title">حصص الدورة</div>
 
-            <a href="درس.html" class="btn btn-secondary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                </svg>
-                فتح الدرس التفاعلي
-            </a>
+        <div class="lessons">
+
+            <!-- الحصة الأولى -->
+            <div class="lesson-card">
+                <div class="lesson-number">01</div>
+                <div class="lesson-info">
+                    <div class="lesson-title">الحصة الأولى</div>
+                    <div class="lesson-sub">درس بصيغة PDF</div>
+                </div>
+                <div class="lesson-actions">
+                    <a href="lesson1.pdf" download class="icon-btn pdf" aria-label="تحميل الحصة الأولى" title="تحميل PDF">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- الحصة الثانية -->
+            <div class="lesson-card">
+                <div class="lesson-number">02</div>
+                <div class="lesson-info">
+                    <div class="lesson-title">الحصة الثانية</div>
+                    <div class="lesson-sub">درس تفاعلي</div>
+                </div>
+                <div class="lesson-actions">
+                    <a href="lesson2.html" class="icon-btn interactive" aria-label="فتح الحصة الثانية" title="فتح الدرس التفاعلي">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- الحصة الثالثة -->
+            <div class="lesson-card">
+                <div class="lesson-number">03</div>
+                <div class="lesson-info">
+                    <div class="lesson-title">الحصة الثالثة</div>
+                    <div class="lesson-sub">درس بصيغة PDF</div>
+                </div>
+                <div class="lesson-actions">
+                    <a href="lesson3.pdf" download class="icon-btn pdf" aria-label="تحميل الحصة الثالثة" title="تحميل PDF">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <div class="footer">
