@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دورة تكوينية في الإعلام الآلي | الأستاذ بلوطي عمر</title>
-    <!-- Google Fonts: Cairo & Fira Code -->
+    <!-- Google Fonts: Noto Kufi Arabic & Fira Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-page: #e9edf4;
@@ -27,7 +27,8 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            font-weight: 600;
         }
 
         html { scroll-behavior: smooth; }
@@ -134,6 +135,27 @@
             margin-bottom: 8px;
             color: var(--text-main);
             letter-spacing: -0.5px;
+            min-height: 1.3em;
+        }
+
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 0.85em;
+            margin-inline-start: 3px;
+            vertical-align: -0.1em;
+            background: var(--primary-blue);
+            border-radius: 1px;
+            animation: cursor-blink 0.85s step-end infinite;
+        }
+
+        .typewriter-cursor.typing-done {
+            animation: cursor-blink 1.15s step-end infinite;
+        }
+
+        @keyframes cursor-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .teacher {
@@ -359,7 +381,7 @@
 
         <span class="badge">منصة التعلم الرقمي</span>
 
-        <h1>دورة تكوينية في المعلوماتية</h1>
+        <h1 aria-label="دورة تكوينية في المعلوماتية"><span id="typewriterText" aria-hidden="true"></span><span class="typewriter-cursor" id="typewriterCursor" aria-hidden="true"></span></h1>
 
         <div class="teacher">
             <!--span>تأطير:</span-->
@@ -468,6 +490,89 @@
         </div>
 
     </div>
+
+    <script>
+        (function () {
+            // ---- صوت النقر التكنولوجي (مولّد بالكود، بدون ملفات خارجية) ----
+            var audioCtx = null;
+            function getAudioContext() {
+                if (!audioCtx) {
+                    var AC = window.AudioContext || window.webkitAudioContext;
+                    if (!AC) return null;
+                    audioCtx = new AC();
+                }
+                return audioCtx;
+            }
+
+            function playClickSound() {
+                var ctx = getAudioContext();
+                if (!ctx || ctx.state === 'suspended') return; // بانتظار أول تفاعل من المستخدم
+                var now = ctx.currentTime;
+
+                var osc = ctx.createOscillator();
+                var gain = ctx.createGain();
+                osc.type = 'square';
+                var baseFreq = 1000 + Math.random() * 500;
+                osc.frequency.setValueAtTime(baseFreq, now);
+                osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.45, now + 0.025);
+
+                gain.gain.setValueAtTime(0.001, now);
+                gain.gain.exponentialRampToValueAtTime(0.07, now + 0.003);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.035);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.04);
+            }
+
+            // بعض المتصفحات تمنع تشغيل الصوت قبل أول تفاعل من المستخدم
+            function unlockAudio() {
+                var ctx = getAudioContext();
+                if (ctx && ctx.state === 'suspended') ctx.resume();
+                document.removeEventListener('click', unlockAudio);
+                document.removeEventListener('touchstart', unlockAudio);
+                document.removeEventListener('keydown', unlockAudio);
+            }
+            document.addEventListener('click', unlockAudio);
+            document.addEventListener('touchstart', unlockAudio);
+            document.addEventListener('keydown', unlockAudio);
+
+            // ---- تأثير آلة الكتابة (Typewriter Effect) لعنوان الدورة ----
+            function initTypewriter() {
+                var target = document.getElementById('typewriterText');
+                var cursor = document.getElementById('typewriterCursor');
+                if (!target) return;
+
+                var fullText = 'دورة تكوينية في المعلوماتية';
+                var chars = Array.from(fullText);
+                var i = 0;
+
+                function typeNext() {
+                    if (i < chars.length) {
+                        target.textContent += chars[i];
+                        playClickSound();
+                        i++;
+                        var delay = 55 + Math.random() * 70;
+                        setTimeout(typeNext, delay);
+                    } else if (cursor) {
+                        cursor.classList.add('typing-done');
+                    }
+                }
+
+                setTimeout(typeNext, 400);
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initTypewriter);
+            } else {
+                initTypewriter();
+            }
+
+            // تهيئة سياق الصوت مبكراً حتى يصبح جاهزاً فور السماح به
+            getAudioContext();
+        })();
+    </script>
 
 </body>
 </html>
