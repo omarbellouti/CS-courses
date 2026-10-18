@@ -339,6 +339,34 @@
         .nav-item svg { width: 21px; height: 21px; }
         .nav-item.active { color: var(--primary-blue); }
 
+        /* ---------- ملاحظة (حصة تعويضية) ---------- */
+        .floating-note {
+            position: relative; z-index: 1;
+            margin: 0 0 22px;
+            display: flex; align-items: flex-start; gap: 10px;
+            background: #fde047; color: #000000;
+            border: 2px solid #000000; border-radius: 16px;
+            padding: 12px 14px;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+            opacity: 0; transform: translateY(20px);
+            animation: note-in 0.6s cubic-bezier(.2,.9,.3,1) 0.2s forwards;
+        }
+
+        @keyframes note-in { to { opacity: 1; transform: translateY(0); } }
+
+        .floating-note .note-icon { flex-shrink: 0; font-size: 20px; line-height: 1.5; }
+        .floating-note .note-text { flex: 1; font-size: 13px; font-weight: 700; line-height: 1.8; color: #000000; }
+        .floating-note .note-text strong { font-weight: 900; }
+
+        .floating-note .note-close {
+            flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+            border: 2px solid #000000; background: #ffffff; color: #000000;
+            font-size: 14px; font-weight: 900; line-height: 1; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .floating-note.hidden { display: none; }
+
         @media (max-width: 460px) {
             .hero-card { padding: 20px; }
             .lesson-card { padding: 13px; gap: 12px; }
@@ -348,7 +376,7 @@
         @media (prefers-reduced-motion: reduce) {
             .glow-orb, .bg-cube-wrap, .bg-cube { animation: none !important; }
             .lesson-card, .icon-btn { transition: none; }
-            .hero-card, .section-title, .lesson-card { animation: none !important; opacity: 1 !important; transform: none !important; }
+            .hero-card, .section-title, .lesson-card, .floating-note { animation: none !important; opacity: 1 !important; transform: none !important; }
             .hero-cube-wrap, .hero-cube, .hero-icon, .lesson-number, .hero-tag .dot { animation: none !important; }
         }
     </style>
@@ -416,6 +444,17 @@
                 <div class="hero-tag"><span class="dot"></span>جارية الآن</div>
                 <h1>الدورة التكوينية الجارية الآن</h1>
             </div>
+        </div>
+
+        <!-- ملاحظة: الحصة التعويضية (داخل مجرى الصفحة حتى لا تغطي الحصص) -->
+        <div class="floating-note" id="makeupNote" role="note">
+            <span class="note-icon">📢</span>
+            <div class="note-text">
+                ملاحظة: الحصة التعويضية الأخيرة للطلبة الغائبين في الحصة التاسعة ستكون
+                <strong>يوم الثلاثاء 27 أكتوبر 2026 على الساعة 13:00 ظهراً</strong>.
+            </div>
+            <button type="button" class="note-close" aria-label="إغلاق الملاحظة" title="إغلاق"
+                    onclick="document.getElementById('makeupNote').classList.add('hidden')">✕</button>
         </div>
 
         <!-- قائمة الحصص -->
@@ -563,8 +602,7 @@
                 <div class="lesson-number upcoming-number">09</div>
                 <div class="lesson-info">
                     <div class="lesson-title">الحصة التاسعة</div>
-                    <div class="lesson-sub">يوم السبت 17 أكتوبر 2026</div>
-                    <span class="badge-soon"><span class="dot"></span>الحصة القادمة</span>
+                    <div class="lesson-sub">يوم السبت 17 أكتوبر 2026 — الساعة 13:00</div>
                 </div>
                 <div class="lesson-actions">
                     <a href="#" class="icon-btn interactive" aria-label="فتح ملخص الحصة التاسعة" title="فتح ملخص الدرس">
@@ -582,7 +620,8 @@
                 <div class="lesson-number">10</div>
                 <div class="lesson-info">
                     <div class="lesson-title">الحصة العاشرة</div>
-                    <div class="lesson-sub">لم يتم تحديد وقتها بعد</div>
+                    <div class="lesson-sub">يوم السبت 25 أكتوبر 2026 — الساعة 13:00</div>
+                    <span class="badge-soon"><span class="dot"></span>الحصة الأخيرة</span>
                 </div>
                 <div class="lesson-actions">
                     <a href="#" class="icon-btn interactive" aria-label="فتح ملخص الحصة العاشرة" title="فتح ملخص الدرس">
