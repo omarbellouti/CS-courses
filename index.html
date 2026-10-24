@@ -339,6 +339,29 @@
         .nav-item svg { width: 21px; height: 21px; }
         .nav-item.active { color: var(--primary-blue); }
 
+        /* ---------- ملاحظة بنفسجية (تأجيل الحصة العاشرة) ---------- */
+        .purple-note {
+            position: relative; z-index: 1;
+            margin: 0 0 16px;
+            display: flex; align-items: flex-start; gap: 10px;
+            background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+            color: #ffffff;
+            border-radius: 16px; padding: 14px 16px;
+            box-shadow: 0 12px 28px rgba(124, 58, 237, 0.35);
+            opacity: 0; transform: translateY(14px);
+            animation: note-in 0.6s cubic-bezier(.2,.9,.3,1) 0.1s forwards;
+        }
+        .purple-note .note-icon { flex-shrink: 0; font-size: 20px; line-height: 1.5; }
+        .purple-note .note-text { flex: 1; font-size: 13px; font-weight: 700; line-height: 1.8; color: #ffffff; }
+        .purple-note .note-text strong { font-weight: 900; }
+        .purple-note .note-close {
+            flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.18); color: #ffffff;
+            font-size: 14px; font-weight: 900; line-height: 1; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .purple-note.hidden { display: none; }
+
         /* ---------- ملاحظة (حصة تعويضية) ---------- */
         .floating-note {
             position: relative; z-index: 1;
@@ -376,7 +399,7 @@
         @media (prefers-reduced-motion: reduce) {
             .glow-orb, .bg-cube-wrap, .bg-cube { animation: none !important; }
             .lesson-card, .icon-btn { transition: none; }
-            .hero-card, .section-title, .lesson-card, .floating-note { animation: none !important; opacity: 1 !important; transform: none !important; }
+            .hero-card, .section-title, .lesson-card, .floating-note, .purple-note { animation: none !important; opacity: 1 !important; transform: none !important; }
             .hero-cube-wrap, .hero-cube, .hero-icon, .lesson-number, .hero-tag .dot { animation: none !important; }
         }
     </style>
@@ -444,6 +467,17 @@
                 <div class="hero-tag"><span class="dot"></span>جارية الآن</div>
                 <h1>الدورة التكوينية الجارية الآن</h1>
             </div>
+        </div>
+
+        <!-- ملاحظة بنفسجية: تأجيل الحصة العاشرة -->
+        <div class="purple-note" id="postponeNote" role="note">
+            <span class="note-icon">🗓️</span>
+            <div class="note-text">
+                تنبيه: تم تأجيل الحصة العاشرة إلى
+                <strong>يوم الثلاثاء 27 أكتوبر 2026 مساءً</strong>.
+            </div>
+            <button type="button" class="note-close" aria-label="إغلاق الملاحظة" title="إغلاق"
+                    onclick="document.getElementById('postponeNote').classList.add('hidden')">✕</button>
         </div>
 
         <!-- ملاحظة: الحصة التعويضية (داخل مجرى الصفحة حتى لا تغطي الحصص) -->
@@ -597,9 +631,9 @@
                 </div>
             </div>
 
-            <!-- الحصة التاسعة (قادمة) -->
-            <div class="lesson-card upcoming">
-                <div class="lesson-number upcoming-number">09</div>
+            <!-- الحصة التاسعة -->
+            <div class="lesson-card">
+                <div class="lesson-number">09</div>
                 <div class="lesson-info">
                     <div class="lesson-title">الحصة التاسعة</div>
                     <div class="lesson-sub">يوم السبت 17 أكتوبر 2026 — الساعة 13:00</div>
@@ -615,9 +649,9 @@
                 </div>
             </div>
 
-            <!-- الحصة العاشرة -->
-            <div class="lesson-card">
-                <div class="lesson-number">10</div>
+            <!-- الحصة العاشرة (قادمة) -->
+            <div class="lesson-card upcoming">
+                <div class="lesson-number upcoming-number">10</div>
                 <div class="lesson-info">
                     <div class="lesson-title">الحصة العاشرة</div>
                     <div class="lesson-sub">يوم السبت 25 أكتوبر 2026 — الساعة 13:00</div>
