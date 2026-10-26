@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e9edf4">
+<title>الاختبار النهائي | الأستاذ بلوطي عمر</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-page:#e9edf4;--card-bg:#fff;--lesson-bg:#f5f7fb;
+  --primary-blue:#2563eb;--sky:#38bdf8;
+  --text-main:#1c2534;--text-muted:#6b7686;--border-soft:#e3e8f0;
+  --c1:#4f46e5;--c2:#818cf8;--sh:rgba(79,70,229,.30);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Noto Kufi Arabic',sans-serif;font-weight:600;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  background-color:var(--bg-page);
+  background-image:
+    radial-gradient(circle at 15% 10%,rgba(79,70,229,.08) 0%,transparent 40%),
+    radial-gradient(circle at 90% 75%,rgba(56,189,248,.10) 0%,transparent 40%),
+    linear-gradient(rgba(28,37,52,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(28,37,52,.035) 1px,transparent 1px);
+  background-size:100% 100%,100% 100%,30px 30px,30px 30px;
+  min-height:100vh;color:var(--text-main);overflow-x:hidden;position:relative;
+}
+
+/* خلفية متحركة فاتحة */
+.blob{position:fixed;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none;z-index:0}
+.blob.b1{width:380px;height:380px;background:#c7d2fe;top:-100px;right:-80px;animation:drift1 16s ease-in-out infinite}
+.blob.b2{width:340px;height:340px;background:#bae6fd;bottom:-120px;left:-80px;animation:drift2 19s ease-in-out infinite}
+.blob.b3{width:260px;height:260px;background:#fbcfe8;top:40%;left:38%;opacity:.35;animation:drift3 22s ease-in-out infinite}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-90px,70px) scale(1.15)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(100px,-60px) scale(1.2)}}
+@keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-70px,-80px) scale(.85)}}
+.bg-3d{position:fixed;inset:0;z-index:0;pointer-events:none;perspective:900px;overflow:hidden}
+.bg-cube{position:absolute;width:var(--s);height:var(--s);animation:bgfloat var(--d) ease-in-out infinite}
+.bg-cube i{display:block;width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:spin var(--r) linear infinite}
+.bg-cube b{position:absolute;inset:0;border:1.5px solid rgba(79,70,229,.25);background:rgba(129,140,248,.07)}
+.bg-cube b:nth-child(1){transform:translateZ(calc(var(--s)/2))}
+.bg-cube b:nth-child(2){transform:translateZ(calc(var(--s)/-2)) rotateY(180deg)}
+.bg-cube b:nth-child(3){transform:rotateY(90deg) translateZ(calc(var(--s)/2))}
+.bg-cube b:nth-child(4){transform:rotateY(-90deg) translateZ(calc(var(--s)/2))}
+.bg-cube b:nth-child(5){transform:rotateX(90deg) translateZ(calc(var(--s)/2))}
+.bg-cube b:nth-child(6){transform:rotateX(-90deg) translateZ(calc(var(--s)/2))}
+@keyframes bgfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-26px)}}
+@keyframes spin{to{transform:rotateX(360deg) rotateY(360deg)}}
+
+/* الشريط العلوي */
+.topbar{position:fixed;top:0;inset-inline:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(14px,3vw,34px);pointer-events:none}
+.back-link{pointer-events:auto;display:inline-flex;align-items:center;gap:7px;color:var(--text-main);text-decoration:none;font-size:13px;font-weight:700;background:rgba(255,255,255,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--border-soft);padding:8px 14px;border-radius:30px;box-shadow:0 6px 16px rgba(28,37,52,.08);transition:color .2s,transform .3s var(--ease)}
+.back-link:hover{color:var(--primary-blue);transform:translateX(3px)}
+.back-link svg{width:16px;height:16px}
+.top-label{font-size:12px;color:var(--text-muted);font-weight:700;background:rgba(255,255,255,.6);padding:6px 12px;border-radius:30px;border:1px solid var(--border-soft)}
+
+.wrap{position:relative;z-index:1;width:100%;max-width:720px;margin:0 auto;padding:78px 16px 50px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.screen{display:none}
+.screen.on{display:block;animation:enter .8s var(--ease) backwards}
+@keyframes enter{from{opacity:0;transform:translateY(30px) scale(.96)}}
+
+/* البطاقة */
+.card{position:relative;background:var(--card-bg);border:1px solid var(--border-soft);border-radius:26px;padding:clamp(20px,4vw,32px);box-shadow:0 16px 36px rgba(28,37,52,.09)}
+.card::before{content:"";position:absolute;top:0;inset-inline:26px;height:4px;border-radius:0 0 8px 8px;background:linear-gradient(90deg,var(--c1),var(--c2))}
+
+/* أيقونة 3D */
+.stage{perspective:700px;display:flex;justify-content:center;margin-bottom:18px}
+.ico{width:78px;height:78px;border-radius:24px;display:grid;place-items:center;font-size:38px;color:#fff;
+  background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 18px 30px var(--sh),inset 0 2px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(0,0,0,.10);
+  animation:bob 4.6s ease-in-out infinite;position:relative}
+.ico::before{content:"";position:absolute;inset:auto 12% -18px;height:12px;border-radius:50%;background:rgba(28,37,52,.22);filter:blur(6px);animation:shad 4.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotateY(-14deg) rotateX(6deg)}50%{transform:translateY(-9px) rotateY(14deg) rotateX(-6deg)}}
+@keyframes shad{50%{transform:scale(.75);opacity:.6}}
+
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;color:var(--c1);background:#eef2ff;border:1px solid #c7d2fe;padding:6px 14px;border-radius:30px;margin-bottom:12px}
+h1{font-size:clamp(1.35rem,4.2vw,2rem);line-height:1.6;font-weight:900;margin-bottom:8px}
+h2{font-size:clamp(1.08rem,3vw,1.45rem);line-height:1.85;font-weight:800;margin-bottom:18px}
+p{font-size:clamp(.88rem,1.5vw,1rem);line-height:2;color:var(--text-muted)}
+.gradient{background:linear-gradient(90deg,var(--c1),var(--sky),#ec4899);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.center{text-align:center}
+.pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 20px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;background:#fff;border:1px solid var(--border-soft);color:#4338ca;font-size:12.5px;font-weight:800;box-shadow:0 4px 10px rgba(28,37,52,.05)}
+
+/* الحقول */
+.field{margin-bottom:14px;text-align:right}
+.field label{display:block;font-size:13.5px;font-weight:800;margin-bottom:6px}
+.field input{width:100%;font-size:16px;font-weight:700;padding:14px 16px;border-radius:16px;border:1.5px solid var(--border-soft);background:var(--lesson-bg);color:var(--text-main);outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
+.field input:focus{border-color:var(--c1);background:#fff;box-shadow:0 0 0 4px rgba(79,70,229,.12)}
+.field input.bad{border-color:#ef4444;background:#fef2f2}
+.err{color:#dc2626;font-size:12.5px;font-weight:700;min-height:20px;margin:-4px 0 6px}
+
+/* الأزرار */
+.btn{font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;border:1px solid var(--border-soft);background:#fff;color:var(--text-main);border-radius:16px;padding:13px 22px;transition:transform .25s var(--ease),box-shadow .25s,opacity .2s;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 10px 20px rgba(28,37,52,.12)}
+.btn:active:not(:disabled){transform:scale(.96)}
+.btn.primary{background:linear-gradient(135deg,#4f46e5,#38bdf8);color:#fff;border:0;box-shadow:0 10px 22px rgba(79,70,229,.34)}
+.btn.block{width:100%;padding:15px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* الأسئلة */
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.qnum{font-size:13px;font-weight:800;color:var(--c1)}
+.qcount{font-size:12.5px;color:var(--text-muted);font-weight:700;font-variant-numeric:tabular-nums}
+.bar{height:8px;background:#dfe5f0;border-radius:10px;overflow:hidden;margin-bottom:20px}
+.bar i{display:block;height:100%;width:0;border-radius:10px;background:linear-gradient(90deg,#4f46e5,#38bdf8,#ec4899);transition:width .6s var(--ease)}
+.opts{display:grid;gap:11px;margin-bottom:22px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:right;font-family:inherit;font-size:clamp(.9rem,1.6vw,1rem);font-weight:700;line-height:1.8;color:var(--text-main);background:var(--lesson-bg);border:1.5px solid var(--border-soft);border-radius:18px;padding:12px 14px;cursor:pointer;transition:transform .3s var(--ease),border-color .2s,background .2s,box-shadow .3s}
+.opt:hover{transform:translateX(-4px);border-color:#c7d2fe;background:#fff;box-shadow:0 8px 18px rgba(79,70,229,.10)}
+.opt .let{flex-shrink:0;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:#fff;border:1px solid var(--border-soft);font-weight:900;color:var(--c1);transition:all .25s}
+.opt .tx{flex:1;unicode-bidi:plaintext}
+.opt.sel{background:#eef2ff;border-color:var(--c1);box-shadow:0 10px 22px rgba(79,70,229,.16)}
+.opt.sel .let{background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;border:0;box-shadow:0 6px 12px rgba(79,70,229,.3)}
+.nav{display:flex;justify-content:space-between;gap:10px}
+
+/* الإرسال */
+.spinner{width:54px;height:54px;border-radius:50%;border:5px solid #dfe5f0;border-top-color:var(--c1);margin:6px auto 16px;animation:rot 1s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.okmark{font-size:64px;display:inline-block;animation:bob 4.6s ease-in-out infinite;filter:drop-shadow(0 14px 14px rgba(5,150,105,.3))}
+.note{border-inline-start:4px solid #10b981;background:#ecfdf5;color:#065f46;border-radius:14px;padding:12px 16px;margin:16px 0;font-size:.95rem;line-height:1.9;font-weight:700;text-align:right}
+.note.warn{border-color:#f59e0b;background:#fffbeb;color:#92400e}
+.note.bad{border-color:#ef4444;background:#fef2f2;color:#991b1b}
+
+@media(max-width:640px){.top-label{display:none}.wrap{padding-top:70px}.opt:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="bg-3d" aria-hidden="true">
+  <div class="bg-cube" style="--s:46px;--d:7s;--r:18s;top:14%;left:8%"><i><b></b><b></b><b></b><b></b><b></b><b></b></i></div>
+  <div class="bg-cube" style="--s:30px;--d:9s;--r:12s;top:38%;right:10%"><i><b></b><b></b><b></b><b></b><b></b><b></b></i></div>
+  <div class="bg-cube" style="--s:58px;--d:8s;--r:24s;top:68%;left:14%"><i><b></b><b></b><b></b><b></b><b></b><b></b></i></div>
+  <div class="bg-cube" style="--s:36px;--d:6s;--r:15s;top:80%;right:18%"><i><b></b><b></b><b></b><b></b><b></b><b></b></i></div>
+</div>
+
+<div class="topbar">
+  <a href="../index.html" class="back-link" id="backLink">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+    الرجوع إلى الرئيسية
+  </a>
+  <div class="top-label">الاختبار النهائي · الدورة التكوينية في الإعلام الآلي</div>
+</div>
+
+<div class="wrap">
+
+  <!-- 1 · الصفحة الأولى: إدخال الاسم واللقب -->
+  <section class="screen on" id="sStart">
+    <div class="card center">
+      <div class="stage"><div class="ico">🎓</div></div>
+      <div class="kicker">الاختبار النهائي</div>
+      <h1><span class="gradient">الدورة التكوينية في الإعلام الآلي</span></h1>
+      <p>الأستاذ المؤطّر: <strong style="color:var(--text-main)">بلوطي عمر</strong></p>
+      <div class="pills">
+        <span class="pill">📝 <span id="qTotal">30</span> سؤالًا</span>
+        <span class="pill">✅ أربعة اقتراحات لكل سؤال</span>
+        <span class="pill">🎯 العلامة على 20</span>
+      </div>
+      <div class="field"><label for="surname">اللقب</label><input id="surname" type="text" autocomplete="off" placeholder="أدخل اللقب"></div>
+      <div class="field"><label for="fname">الاسم</label><input id="fname" type="text" autocomplete="off" placeholder="أدخل الاسم"></div>
+      <div class="err" id="startErr"></div>
+      <button class="btn primary block" id="startBtn">ابدأ الاختبار ←</button>
+      <p style="font-size:12px;margin-top:12px">اختر إجابة واحدة لكل سؤال. لا تُغلق الصفحة قبل الإرسال.</p>
+    </div>
+  </section>
+
+  <!-- 2 · الأسئلة -->
+  <section class="screen" id="sQuiz">
+    <div class="card">
+      <div class="qhead"><span class="qnum" id="qnum"></span><span class="qcount" id="qcount"></span></div>
+      <div class="bar"><i id="bar"></i></div>
+      <h2 id="qtext"></h2>
+      <div class="opts" id="opts"></div>
+      <div class="nav">
+        <button class="btn" id="prev">→ السابق</button>
+        <button class="btn primary" id="next" disabled>التالي ←</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · جارٍ الإرسال -->
+  <section class="screen" id="sSending">
+    <div class="card center">
+      <div class="spinner"></div>
+      <h2 style="margin-bottom:6px">جارٍ إرسال إجاباتك…</h2>
+      <p>من فضلك لا تُغلق الصفحة.</p>
+    </div>
+  </section>
+
+  <!-- 4 · تم الإرسال -->
+  <section class="screen" id="sDone">
+    <div class="card center" style="--c1:#059669;--c2:#34d399">
+      <div class="okmark">✅</div>
+      <h1 style="margin-top:6px"><span class="gradient">تم إرسال إجابتك في حساب الأستاذ</span></h1>
+      <p id="doneName"></p>
+      <div class="note">النظام سيحسب مجموع النقاط تلقائيًا ويرسل العلامة إلى الأستاذ.</div>
+      <p>شكرًا لك، ونتمنى لك التوفيق والنجاح.</p>
+      <a class="btn primary" href="../index.html" style="margin-top:16px">🏠 الرجوع إلى الرئيسية</a>
+    </div>
+  </section>
+
+  <!-- خطأ في الإرسال -->
+  <section class="screen" id="sError">
+    <div class="card center" style="--c1:#dc2626;--c2:#fb7185">
+      <div class="okmark" style="filter:none">⚠️</div>
+      <h1 style="margin-top:6px">تعذّر إرسال إجاباتك</h1>
+      <div class="note bad" id="errMsg"></div>
+      <button class="btn primary" id="retry">↻ إعادة المحاولة</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   إعداد الإرسال (يقوم به الأستاذ مرة واحدة):
+   ضع هنا رابط تطبيق الويب (Web App URL) الناتج عن Google Apps Script.
+   راجع الملف apps-script.gs للتعليمات.
+   ============================================================ */
+const SEND_URL = "https://script.google.com/macros/s/AKfycbytiMsKNSkyHhTFMmuSaNMyNWqG5PewcoHnscKXNTDN49_4qV7kcblqd1X9QINm8gYt/exec";
+
+const QUESTIONS = [{"q": "أي مكوّن يُعتبر «عقل» الحاسوب لأنه ينفّذ التعليمات ويعالج البيانات؟", "o": ["المعالج CPU", "ذاكرة RAM", "القرص الصلب", "الطابعة"]}, {"q": "ماذا يحدث لمحتوى ذاكرة RAM عند إطفاء الجهاز؟", "o": ["يُحفظ بصفة دائمة", "يُمحى", "ينتقل تلقائيًا إلى الطابعة", "يصبح أسرع في المرة القادمة"]}, {"q": "أي مكوّن يحفظ نظام التشغيل والبرامج والملفات بصورة دائمة حتى بعد إطفاء الحاسوب؟", "o": ["ذاكرة RAM", "المعالج", "القرص الصلب", "لوحة المفاتيح"]}, {"q": "إذا كانت ذاكرة RAM قليلة، فما الأثر المتوقع على الجهاز؟", "o": ["يتباطأ عند فتح عدة برامج في وقت واحد", "يصبح أسرع كثيرًا", "تتلف الملفات المحفوظة", "تتوقف الطابعة عن العمل"]}, {"q": "ما الترتيب الصحيح لمسار البيانات كما درسنا في الدورة؟", "o": ["المعالج ← القرص ← RAM", "RAM ← القرص ← المعالج", "القرص ← RAM ← المعالج", "المعالج ← RAM ← القرص"]}, {"q": "ما الميزة الأساسية لقرص SSD مقارنة بقرص HDD؟", "o": ["يستخدم أقراصًا ميكانيكية دوّارة", "أسرع عادةً ولا يحتوي على أجزاء ميكانيكية متحركة", "لا يستطيع تخزين الملفات الكبيرة", "يعمل بدون لوحة أم"]}, {"q": "عند التفكير في زيادة (ترقية) ذاكرة RAM، ما العوامل التي يجب التحقق منها؟", "o": ["لون الجهاز وحجم الشاشة", "نوع الطابعة المتصلة", "عدد المنافذ المتاحة في اللوحة الأم والحد الأقصى المدعوم وتوافق نوع الذاكرة", "اسم المستخدم في Windows"]}, {"q": "لماذا لا يمكن أحيانًا ترقية ذاكرة RAM في بعض الحواسيب الحديثة؟", "o": ["لأن الذاكرة تكون ملحومة على اللوحة الأم", "لأن RAM لا تُرقّى في أي جهاز", "لأن الجهاز يعمل بدون معالج", "لأن القرص الصلب ممتلئ دائمًا"]}, {"q": "قبل شراء حاسوب، ما المواصفات الأهم التي نراجعها؟", "o": ["لون الهيكل فقط", "المعالج وسعة RAM ونوع القرص وسعته وقابلية الترقية", "اسم المتجر", "طول سلك الكهرباء"]}, {"q": "ما اختصار لوحة المفاتيح المستعمل لنسخ العنصر المحدّد؟", "o": ["Ctrl + V", "Ctrl + X", "Ctrl + A", "Ctrl + C"]}, {"q": "ما اختصار لوحة المفاتيح المستعمل لتحديد الكل؟", "o": ["Ctrl + A", "Ctrl + X", "Alt + F4", "Ctrl + V"]}, {"q": "ماذا يفعل الاختصار Alt + F4؟", "o": ["ينسخ العنصر المحدّد", "يحدّد كل العناصر", "يغلق النافذة النشطة", "يفتح مدير المهام"]}, {"q": "أي برنامج من حزمة Office مخصّص لإنشاء المستندات النصية وتنسيقها كالرسائل والشهادات؟", "o": ["Word", "Excel", "PowerPoint", "Task Manager"]}, {"q": "أي برنامج من حزمة Office يتميّز بالجداول والصيغ والدوال الحسابية؟", "o": ["Word", "Excel", "PowerPoint", "Notepad"]}, {"q": "أي برنامج مناسب لإنشاء عرض تقديمي يجمع النصوص والصور والصوت والحركة؟", "o": ["Excel", "Word", "PowerPoint", "SmadAV"]}, {"q": "ما فائدة ميزة «دمج المراسلات» في Word؟", "o": ["ضغط الملفات", "تحويل الملف إلى جدول بيانات", "إنشاء عدد كبير من الرسائل أو الشهادات المتشابهة مع تخصيص الاسم لكل مستلم", "طباعة الصفحة بدون طابعة"]}, {"q": "كيف يتكوّن عنوان الخلية في Excel؟", "o": ["رقم الصف ثم اسم الملف", "حرف العمود ورقم الصف مثل B5", "اسم الورقة فقط", "عدد الأعمدة في الجدول"]}, {"q": "أي صيغة تحسب مجموع النقاط الموجودة في الخلايا من B2 إلى D2؟", "o": ["=AVERAGE(B2:D2)", "=IF(B2:D2)", "=SUM(B2:D2)", "=MAX(B2:D2)"]}, {"q": "أي صيغة تُظهر «ناجح» إذا كانت القيمة في E2 تساوي 10 أو أكثر، و«راسب» في غير ذلك؟", "o": ["=IF(E2>=10,\"ناجح\",\"راسب\")", "=IF(E2<10,\"ناجح\",\"راسب\")", "=SUM(E2>=10)", "=AVERAGE(E2,\"ناجح\")"]}, {"q": "ما الفرق بين Transition وAnimation في PowerPoint؟", "o": ["Transition تأثير عند الانتقال بين الشرائح، وAnimation تأثير على عنصر داخل الشريحة", "Transition خاص بالصوت، وAnimation خاص بالطباعة", "لا فرق بينهما", "Transition يحذف الشريحة، وAnimation ينسخها"]}, {"q": "في نشاط السؤال التفاعلي في PowerPoint، كيف نجعل الاختيار الصحيح يقود إلى شريحة «إجابة صحيحة»؟", "o": ["بتكبير حجم الخط", "باستعمال الارتباطات التشعبية (Hyperlinks)", "بحذف الشرائح الأخرى", "بطباعة الشريحة"]}, {"q": "أي من الأسباب التالية قد يجعل بدء تشغيل الجهاز بطيئًا؟", "o": ["قلة الغبار على الجهاز", "إطفاء الشاشة", "كثرة البرامج التي تبدأ تلقائيًا مع Windows", "استعمال لوحة المفاتيح"]}, {"q": "ما اختصار فتح مدير المهام (Task Manager)؟", "o": ["Ctrl + Shift + Esc", "Ctrl + C", "Alt + F4", "Ctrl + A"]}, {"q": "ما الإجراء الأنسب لتسريع بدء تشغيل Windows كما طبّقنا؟", "o": ["حذف ملفات النظام", "تعطيل تطبيقات بدء التشغيل غير الضرورية التي نعرفها", "إنهاء كل العمليات في مدير المهام", "تثبيت أكبر عدد ممكن من البرامج"]}, {"q": "لماذا يجب الحذر من إنهاء عمليات في مدير المهام لا نعرفها؟", "o": ["لأن ذلك يجعل الشاشة أكبر", "لأنه يمسح ذاكرة RAM نهائيًا", "لأنه قد يوقف بعض وظائف النظام أو يُفقد العمل غير المحفوظ", "لأن مدير المهام لا يسمح بإنهاء أي عملية"]}, {"q": "ما النصيحة الصحيحة عند استعمال مضاد الفيروسات؟", "o": ["تحميله من الموقع الرسمي وتحديثه باستمرار وعدم اعتباره ضمانًا مطلقًا", "تحميله من أي موقع يعرض نسخة مجانية", "عدم تحديثه أبدًا", "الاعتماد عليه وحده دون أي حذر"]}, {"q": "ما اسم الأداة التي تعرّفنا عليها واستعملناها لفحص أقراص الجهاز؟", "o": ["Kaspersky Office", "SmadAV", "Excel", "Task Printer"]}, {"q": "ما مسار الطباعة من Word أو Excel؟", "o": ["Insert ثم Table", "Home ثم Font", "Fichier / File ثم Imprimer / Print", "View ثم Zoom"]}, {"q": "لماذا لم تعمل الطابعة في أول مرة؟", "o": ["لأن الحاسوب كان يحتاج إلى تعريف الطابعة (Driver) المناسب", "لأن الورق كان ملوّنًا", "لأن لوحة المفاتيح معطّلة", "لأن ملف Word كان كبيرًا"]}, {"q": "لتسهيل العثور على ملف Word لاحقًا، ما الأفضل عند حفظه؟", "o": ["حفظه بأي اسم وفي أي مكان", "حفظه داخل مجلد منظّم باسم واضح للمجلد والملف", "حفظه في ذاكرة RAM", "عدم حفظه"]}];
+
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var LET=['أ','ب','ج','د'];
+  var N=QUESTIONS.length;
+  var state={surname:'',name:'',order:[],answers:[],cur:0,t0:0,sent:false,inExam:false};
+
+  $('qTotal').textContent=N;
+
+  function show(id){
+    [].forEach.call(document.querySelectorAll('.screen'),function(s){s.classList.toggle('on',s.id===id)});
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function shuffle(a){
+    for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}
+    return a;
+  }
+
+  /* بدء الاختبار */
+  function start(){
+    var s=$('surname'),n=$('fname'),err=$('startErr');
+    s.classList.remove('bad');n.classList.remove('bad');err.textContent='';
+    var sv=s.value.replace(/\s+/g,' ').trim(),nv=n.value.replace(/\s+/g,' ').trim();
+    if(sv.length<2){s.classList.add('bad');err.textContent='من فضلك أدخل اللقب.';s.focus();return}
+    if(nv.length<2){n.classList.add('bad');err.textContent='من فضلك أدخل الاسم.';n.focus();return}
+    state.surname=sv;state.name=nv;
+    state.order=QUESTIONS.map(function(q){return shuffle(q.o.map(function(_,i){return i}))});
+    state.answers=QUESTIONS.map(function(){return null});
+    state.cur=0;state.t0=Date.now();state.inExam=true;state.sent=false;
+    renderQ();show('sQuiz');
+  }
+  $('startBtn').addEventListener('click',start);
+  ['surname','fname'].forEach(function(id){$(id).addEventListener('keydown',function(e){if(e.key==='Enter')start()})});
+
+  /* عرض سؤال */
+  function renderQ(){
+    var i=state.cur,q=QUESTIONS[i];
+    $('qnum').textContent='السؤال '+(i+1);
+    $('qcount').textContent=(i+1)+' / '+N;
+    $('bar').style.width=((i+1)/N*100)+'%';
+    $('qtext').textContent=q.q;
+    var box=$('opts');box.innerHTML='';
+    state.order[i].forEach(function(orig,pos){
+      var b=document.createElement('button');
+      b.type='button';b.className='opt'+(state.answers[i]===orig?' sel':'');
+      var l=document.createElement('span');l.className='let';l.textContent=LET[pos];
+      var t=document.createElement('span');t.className='tx';t.textContent=q.o[orig];
+      b.appendChild(l);b.appendChild(t);
+      b.addEventListener('click',function(){
+        state.answers[i]=orig;
+        [].forEach.call(box.children,function(c){c.classList.remove('sel')});
+        b.classList.add('sel');
+        updateNav();
+      });
+      box.appendChild(b);
+    });
+    updateNav();
+  }
+  function updateNav(){
+    var i=state.cur,last=i===N-1;
+    $('prev').disabled=i===0;
+    $('next').disabled=state.answers[i]===null;
+    $('next').textContent=last?'إرسال الإجابات ✓':'التالي ←';
+  }
+  $('prev').addEventListener('click',function(){if(state.cur>0){state.cur--;renderQ()}});
+  $('next').addEventListener('click',function(){
+    if(state.answers[state.cur]===null)return;
+    if(state.cur<N-1){state.cur++;renderQ();window.scrollTo({top:0,behavior:'smooth'})}
+    else{
+      if(state.answers.indexOf(null)!==-1){
+        var k=state.answers.indexOf(null);state.cur=k;renderQ();
+        alert('لم تُجب عن السؤال '+(k+1)+'.');return;
+      }
+      if(confirm('هل تريد إرسال إجاباتك نهائيًا؟ لا يمكن التعديل بعد الإرسال.'))submit();
+    }
+  });
+
+  /* الإرسال إلى حساب الأستاذ */
+  function submit(){
+    state.inExam=false;
+    show('sSending');
+    var payload={
+      surname:state.surname,name:state.name,
+      answers:state.answers,
+      duration:Math.round((Date.now()-state.t0)/1000),
+      sentAt:new Date().toISOString()
+    };
+    if(!SEND_URL){
+      fail('لم يتم ربط الاختبار بحساب الأستاذ بعد (SEND_URL فارغ في الصفحة). أخبر الأستاذ بذلك.');
+      return;
+    }
+    fetch(SEND_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
+      .then(function(){
+        state.sent=true;
+        $('doneName').textContent=state.surname+' '+state.name;
+        show('sDone');
+      })
+      .catch(function(){fail('تحقق من اتصالك بالإنترنت ثم أعد المحاولة. إجاباتك محفوظة في هذه الصفحة، فلا تغلقها.')});
+  }
+  function fail(msg){$('errMsg').textContent=msg;show('sError')}
+  $('retry').addEventListener('click',submit);
+
+  /* تنبيه قبل مغادرة الصفحة أثناء الاختبار */
+  window.addEventListener('beforeunload',function(e){
+    if(state.inExam||(!state.sent&&state.answers.length&&state.answers.indexOf(null)===-1)){e.preventDefault();e.returnValue=''}
+  });
+})();
+</script>
+</body>
+</html>
