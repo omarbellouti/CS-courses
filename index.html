@@ -313,6 +313,31 @@
             .badge-soon .dot { animation: none !important; }
         }
 
+        /* ---------- مربعا الملخص النهائي والاختبار النهائي ---------- */
+        .final-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
+
+        .final-card {
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: space-between;
+            min-height: 140px; padding: 16px; border-radius: 20px;
+            text-decoration: none; color: #ffffff; text-align: right;
+            box-shadow: 0 12px 26px rgba(28, 37, 52, 0.18);
+            opacity: 0; transform: translateY(20px) scale(0.96);
+            animation: card-in 0.6s cubic-bezier(.2,.9,.3,1) 1.3s forwards;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .final-card:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(28, 37, 52, 0.26); }
+        .final-card::after {
+            content: ""; position: absolute; width: 110px; height: 110px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.16); top: -38px; inset-inline-end: -38px;
+        }
+        .final-card .f-icon { font-size: 30px; line-height: 1; position: relative; z-index: 1; }
+        .final-card .f-title { font-size: 15px; font-weight: 800; line-height: 1.5; margin-top: 12px; position: relative; z-index: 1; }
+        .final-card .f-sub { font-size: 12px; font-weight: 600; opacity: 0.92; margin-top: 3px; line-height: 1.6; position: relative; z-index: 1; }
+
+        .final-summary { background: linear-gradient(315deg, #c2410c 0%, #f59e0b 100%); }
+        .final-exam    { background: linear-gradient(315deg, #be123c 0%, #f472b6 100%); }
+
         /* ---------- Footer ---------- */
         .footer { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; }
         .footer-code { font-family: 'Fira Code', monospace; color: var(--primary-blue); font-size: 12px; opacity: 0.8; }
@@ -399,7 +424,7 @@
         @media (prefers-reduced-motion: reduce) {
             .glow-orb, .bg-cube-wrap, .bg-cube { animation: none !important; }
             .lesson-card, .icon-btn { transition: none; }
-            .hero-card, .section-title, .lesson-card, .floating-note, .purple-note { animation: none !important; opacity: 1 !important; transform: none !important; }
+            .hero-card, .section-title, .lesson-card, .floating-note, .purple-note, .final-card { animation: none !important; opacity: 1 !important; transform: none !important; }
             .hero-cube-wrap, .hero-cube, .hero-icon, .lesson-number, .hero-tag .dot { animation: none !important; }
         }
     </style>
@@ -666,6 +691,24 @@
                         </svg>
                     </a>
                 </div>
+            </div>
+
+            <!-- الملخص النهائي + الاختبار النهائي -->
+            <div class="final-grid">
+                <a href="#" class="final-card final-summary">
+                    <span class="f-icon">📋</span>
+                    <div>
+                        <div class="f-title">الملخص النهائي للدورة</div>
+                        <div class="f-sub">ما تم التطرق له في الدورة</div>
+                    </div>
+                </a>
+                <a href="#" class="final-card final-exam">
+                    <span class="f-icon">🏆</span>
+                    <div>
+                        <div class="f-title">الاختبار النهائي</div>
+                        <div class="f-sub">اختبار ختام الدورة</div>
+                    </div>
+                </a>
             </div>
 
         </div>
